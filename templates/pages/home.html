@@ -2,4 +2,41 @@
 
 {% block content %}
 Welcome to Tweet me
+<br><br>
+
+<div id="tweets">
+    Loading...
+</div>
+
+<script>
+    const tweetsElement = document.querySelector("#tweets");
+    const xhr = new XMLHttpRequest();
+    const method = "GET";
+    const url = "/tweets";
+    const responseType = "json";
+
+    //setting up xhr object
+    xhr.responseType = responseType;
+    xhr.open(method, url);
+    xhr.onload = function () {
+        var serverResponse = this.response;
+        var listedItems = serverResponse.response;
+        var finalTweetStr = "";
+        for (let item of listedItems) {
+            var currentItem = formatTweetElement(item);
+            finalTweetStr += currentItem;
+        }
+        tweetsElement.innerHTML = finalTweetStr;
+    }
+    xhr.send();
+
+
+    function formatTweetElement(tweet) {
+        // var formattedTweet = "<div class='mb-4 tweet' id='tweet-" + tweet.id + "'><p>" + tweet.content + "</p></div>";
+        var formattedTweet = `<div class='mb-4 tweet' id='tweet-${tweet.id}'><p> ${tweet.content} </p></div>`;
+        return formattedTweet;
+    }
+
+</script>
+
 {% endblock %}

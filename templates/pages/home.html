@@ -8,9 +8,21 @@
     </div>
 </div>
 
+<div class="row mb-3">
+    <div class="col-md-4 col-10 mx-auto">
+        <form action="/create-tweet" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="/">
+            <textarea name="content" class="form-control" placeholder="Your tweet..."></textarea>
+            <button type="submit" class="btn btn-primary">Tweet</button>
+        </form>
+    </div>
+</div>
+
 <div class="row" id="tweets">
     Loading...
 </div>
+
 
 <script>
     const tweetsElement = document.querySelector("#tweets");

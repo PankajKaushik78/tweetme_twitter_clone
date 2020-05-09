@@ -70,6 +70,12 @@
                 console.log(contentErrorMsg)
             } else if (xhr.status === 500) {
                 alert("There was a server error, please try later")
+            } else if (xhr.status === 403) {
+                alert("You must login");
+                window.location.href = "/login";
+            } else if (xhr.status === 401) {
+                alert("You must login");
+                window.location.href = "/login";
             }
 
         }
@@ -88,7 +94,7 @@
         xhr.open(method, url);
         xhr.onload = function () {
             const serverResponse = this.response;
-            const listedTweets = serverResponse.response;
+            const listedTweets = serverResponse;
             var finalTweetStr = "";
             for (let tweet of listedTweets) {
                 var currentTweet = formatTweetElement(tweet);
@@ -99,7 +105,7 @@
         xhr.send();
     }
 
-    loadTweets(tweetsContainerElement);
+    loadTweets(tweetsContainerElement); //calling load tweets every time page is reloaded
 
     function formatTweetElement(tweet) {
         var formattedTweet = `<div class='col-12 col-md-10 mx-auto border rounded py-3 mb-4 tweet' id='tweet-${tweet.id}'>
